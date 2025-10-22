@@ -1,38 +1,20 @@
-from typing import Type
 from python_forestacion.entidades.cultivos.cultivo import Cultivo
 from python_forestacion.entidades.cultivos.pino import Pino
 from python_forestacion.entidades.cultivos.olivo import Olivo
 from python_forestacion.entidades.cultivos.lechuga import Lechuga
 from python_forestacion.entidades.cultivos.zanahoria import Zanahoria
-from python_forestacion.entidades.cultivos.tipo_aceituna import TipoAceituna
-
 
 class CultivoFactory:
-    """Factory Method para crear cultivos con IDs únicos."""
-
-    _ultimo_id: int = 0  # Contador para IDs únicos
+    _contador_id = 0
 
     @classmethod
-    def _obtener_nuevo_id(cls) -> int:
-        """Genera un nuevo ID único para cultivos."""
-        cls._ultimo_id += 1
-        return cls._ultimo_id
+    def _generar_id(cls) -> int:
+        cls._contador_id += 1
+        return cls._contador_id
 
     @staticmethod
     def crear_cultivo(especie: str) -> Cultivo:
-        """
-        Crea un cultivo del tipo especificado.
-
-        Args:
-            especie: Tipo de cultivo ("Pino", "Olivo", "Lechuga", "Zanahoria")
-
-        Returns:
-            Cultivo: Instancia del cultivo creado
-
-        Raises:
-            ValueError: Si la especie es desconocida
-        """
-        factories: dict[str, callable[[], Cultivo]] = {
+        factories = {
             "Pino": CultivoFactory._crear_pino,
             "Olivo": CultivoFactory._crear_olivo,
             "Lechuga": CultivoFactory._crear_lechuga,
@@ -46,24 +28,20 @@ class CultivoFactory:
 
     @staticmethod
     def _crear_pino() -> Pino:
-        """Crea un Pino con variedad por defecto."""
-        id = CultivoFactory._obtener_nuevo_id()
-        return Pino(id=id, variedad="Parana")
+        id_cultivo = CultivoFactory._generar_id()
+        return Pino(id=id_cultivo, variedad="Parana")
 
     @staticmethod
     def _crear_olivo() -> Olivo:
-        """Crea un Olivo con tipo de aceituna por defecto."""
-        id = CultivoFactory._obtener_nuevo_id()
-        return Olivo(id=id, tipo_aceituna=TipoAceituna.ARBEQUINA)
+        id_cultivo = CultivoFactory._generar_id()
+        return Olivo(id=id_cultivo, variedad="Arbequina")
 
     @staticmethod
     def _crear_lechuga() -> Lechuga:
-        """Crea una Lechuga con variedad por defecto."""
-        id = CultivoFactory._obtener_nuevo_id()
-        return Lechuga(id=id, variedad="Crespa")
+        id_cultivo = CultivoFactory._generar_id()
+        return Lechuga(id=id_cultivo, variedad="Iceberg")
 
     @staticmethod
     def _crear_zanahoria() -> Zanahoria:
-        """Crea una Zanahoria (regular por defecto)."""
-        id = CultivoFactory._obtener_nuevo_id()
-        return Zanahoria(id=id, baby_carrot=False)
+        id_cultivo = CultivoFactory._generar_id()
+        return Zanahoria(id=id_cultivo, variedad="Nantes")

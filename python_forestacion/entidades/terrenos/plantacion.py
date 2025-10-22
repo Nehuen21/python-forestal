@@ -1,82 +1,50 @@
-from typing import List, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from python_forestacion.entidades.cultivos.cultivo import Cultivo
-    from python_forestacion.entidades.personal.trabajador import Trabajador
-
+from typing import List
+from python_forestacion.entidades.personal.trabajador import Trabajador
+from python_forestacion.entidades.cultivos.cultivo import Cultivo
 
 class Plantacion:
-    def __init__(self, nombre: str, superficie: float, agua: int):
-        if superficie <= 0:
-            raise ValueError("La superficie tiene que  ser mayor a cero")
-        if agua < 0:
-            raise ValueError("El agua no puede ser negativa")
-
+    def __init__(self, nombre: str, superficie: float, agua: float):
         self._nombre = nombre
         self._superficie = superficie
         self._agua = agua
-        self._cultivos: List['Cultivo'] = []
-        self._trabajadores: List['Trabajador'] = []  # US-017
+        self._trabajadores: List[Trabajador] = []
+        self._cultivos: List[Cultivo] = []
 
-    # --- Nombre ---
-    @property
-    def nombre(self) -> str:
+    # ===== GETTERS =====
+    def get_nombre(self) -> str:
         return self._nombre
 
-    @nombre.setter
-    def nombre(self, valor: str) -> None:
-        if not valor or not valor.strip():
-            raise ValueError("El nombre no puede estar vacío")
-        self._nombre = valor
-
-    # --- Superficie ---
-    @property
-    def superficie(self) -> float:
+    def get_superficie(self) -> float:
         return self._superficie
 
-    @superficie.setter
-    def superficie(self, valor: float) -> None:
-        if valor <= 0:
-            raise ValueError("superficie debe ser mayor a cero")
-        self._superficie = valor
-
-    # --- Agua ---
-    @property
-    def agua(self) -> int:
+    def get_agua(self) -> float:
         return self._agua
 
-    @agua.setter
-    def agua(self, valor: int) -> None:
-        if valor < 0:
-            raise ValueError("agua no puede ser negativa")
-        self._agua = valor
+    def get_trabajadores(self) -> List[Trabajador]:
+        return self._trabajadores.copy()  # Defensive copy
 
-    # --- Cultivos ---
-    def agregar_cultivo(self, cultivo: 'Cultivo') -> None:
-        """Agrega un cultivo a la plantación."""
+    def get_cultivos(self) -> List[Cultivo]:
+        return self._cultivos.copy()  # Defensive copy
+
+    # ===== SETTERS =====
+    def set_trabajadores(self, trabajadores: List[Trabajador]):
+        self._trabajadores = trabajadores.copy()  # Defensive copy
+
+    def agregar_cultivo(self, cultivo: Cultivo):
+        """Agrega un solo cultivo a la plantación."""
         self._cultivos.append(cultivo)
 
-    def agregar_cultivos(self, cultivos: List['Cultivo']) -> None:
-        """Agrega múltiples cultivos."""
+    def agregar_cultivos(self, cultivos: List[Cultivo]):
+        """Agrega múltiples cultivos a la plantación."""
         self._cultivos.extend(cultivos)
 
-    def obtener_cultivos(self) -> List['Cultivo']:
-        return self._cultivos.copy()
+    def remover_cultivo(self, cultivo: Cultivo):
+        if cultivo in self._cultivos:
+            self._cultivos.remove(cultivo)
 
-    # --- Trabajadores ---
-    def agregar_trabajador(self, trabajador: 'Trabajador') -> None:
-        self._trabajadores.append(trabajador)
+    # ===== OPERACIONES =====
+    def descontar_agua(self, cantidad: float):
+        self._agua = max(self._agua - cantidad, 0)
 
-    def establecer_trabajadores(self, trabajadores: List['Trabajador']) -> None:
-        self._trabajadores = trabajadores.copy()
-
-    def obtener_trabajadores(self) -> List['Trabajador']:
-        return self._trabajadores.copy()
-
-    # --- Representación ---
-    def __str__(self) -> str:
-        return (f"Plantacion('{self._nombre}', superficie={self._superficie}m², agua={self._agua}L, "
-                f"cultivos={len(self._cultivos)}, trabajadores={len(self._trabajadores)})")
-
-    def __repr__(self) -> str:
-        return self.__str__()
+    def agregar_agua(self, cantidad: float):
+        self._agua += cantidad
