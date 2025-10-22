@@ -4,14 +4,9 @@ from typing import Generic, TypeVar
 T = TypeVar('T')
 
 class Observer(Generic[T], ABC):
-    """Interfaz para observadores que reciben notificaciones de un Observable."""
+    """Interfaz para objetos observadores en el patrón Observer."""
     
     @abstractmethod
     def actualizar(self, evento: T) -> None:
-        """
-        Método llamado cuando el observable notifica un cambio.
-        
-        Args:
-            evento: Datos del evento notificado
-        """
+        """Método llamado cuando el observable notifica un cambio."""
         pass

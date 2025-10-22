@@ -26,3 +26,9 @@ class Trabajador:
 
     def get_apto_medico(self) -> AptoMedico | None:
         return self._apto_medico
+
+    def tiene_apto_medico_valido(self) -> bool:
+        """Verifica si el trabajador tiene apto médico válido."""
+        if self._apto_medico is None:
+            return False
+        return self._apto_medico.esta_apto() and not self._apto_medico.esta_vencido(date.today())

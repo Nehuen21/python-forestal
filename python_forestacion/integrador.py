@@ -1,4 +1,23 @@
 """
+Archivo integrador generado automaticamente
+Directorio: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion
+Fecha: 2025-10-22 12:08:04
+Total de archivos integrados: 2
+"""
+
+# ================================================================================
+# ARCHIVO 1/2: __init__.py
+# Ruta: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion/__init__.py
+# ================================================================================
+
+
+
+# ================================================================================
+# ARCHIVO 2/2: constantes.py
+# Ruta: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion/constantes.py
+# ================================================================================
+
+"""
 Constantes centralizadas del sistema PythonForestal.
 NO hardcodear valores magicos en el codigo.
 """
@@ -64,3 +83,4 @@ THREAD_JOIN_TIMEOUT = 2.0  # segundos
 # ===== PERSISTENCIA =====
 DIRECTORIO_DATA = "data"
 EXTENSION_DATA = ".dat"
+

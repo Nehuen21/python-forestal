@@ -1,42 +1,37 @@
-from dataclasses import dataclass, field
-
-
-@dataclass
 class Herramienta:
     """
     Representa una herramienta utilizada en tareas agrícolas o de forestación.
     Cada herramienta puede requerir un certificado de Higiene y Seguridad (HyS).
     """
 
-    _id_herramienta: int = field(init=True, repr=False)
-    _nombre: str = field(init=True, repr=False)
-    _certificado_hys: bool = field(default=False, repr=False)
+    def __init__(self, id_herramienta: int, nombre: str, certificado_hys: bool = False):
+        self._id_herramienta = id_herramienta
+        self._nombre = nombre
+        self._certificado_hys = certificado_hys
 
     # ---------------------------
-    # Propiedades de acceso
+    # Getters
     # ---------------------------
-    @property
-    def id_herramienta(self) -> int:
+    def get_id_herramienta(self) -> int:
         return self._id_herramienta
 
-    @property
-    def nombre(self) -> str:
+    def get_nombre(self) -> str:
         return self._nombre
 
-    @nombre.setter
-    def nombre(self, nuevo_nombre: str) -> None:
+    def get_certificado_hys(self) -> bool:
+        return self._certificado_hys
+
+    # ---------------------------
+    # Setters
+    # ---------------------------
+    def set_nombre(self, nuevo_nombre: str) -> None:
         if not isinstance(nuevo_nombre, str):
             raise TypeError("El nombre de la herramienta debe ser una cadena de texto.")
         if not nuevo_nombre.strip():
             raise ValueError("El nombre de la herramienta no puede estar vacío.")
         self._nombre = nuevo_nombre.strip()
 
-    @property
-    def certificado_hys(self) -> bool:
-        return self._certificado_hys
-
-    @certificado_hys.setter
-    def certificado_hys(self, estado: bool) -> None:
+    def set_certificado_hys(self, estado: bool) -> None:
         if not isinstance(estado, bool):
             raise TypeError("El valor del certificado debe ser booleano (True/False).")
         self._certificado_hys = estado
@@ -44,3 +39,8 @@ class Herramienta:
     # ---------------------------
     # Métodos de representación
     # ---------------------------
+    def __str__(self) -> str:
+        return f"Herramienta(ID: {self._id_herramienta}, Nombre: {self._nombre}, Certificado H&S: {self._certificado_hys})"
+
+    def __repr__(self) -> str:
+        return f"Herramienta(id_herramienta={self._id_herramienta}, nombre='{self._nombre}', certificado_hys={self._certificado_hys})"

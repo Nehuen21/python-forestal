@@ -1,3 +1,27 @@
+"""
+Archivo integrador generado automaticamente
+Directorio: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion/servicios/personal
+Fecha: 2025-10-22 12:08:04
+Total de archivos integrados: 2
+"""
+
+# ================================================================================
+# ARCHIVO 1/2: __init__.py
+# Ruta: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion/servicios/personal/__init__.py
+# ================================================================================
+
+"""Servicios relacionados con la gestión de personal y tareas de campo."""
+
+from python_forestacion.servicios.personal.trabajador_service import TrabajadorService
+
+__all__ = ["TrabajadorService"]
+
+
+# ================================================================================
+# ARCHIVO 2/2: trabajador_service.py
+# Ruta: /home/nehuen/Escritorio/ParcialAhora/python-forestal/python_forestacion/servicios/personal/trabajador_service.py
+# ================================================================================
+
 from datetime import date
 from typing import List
 from python_forestacion.entidades.personal.trabajador import Trabajador
@@ -108,3 +132,4 @@ class TrabajadorService:
             "tareas_pendientes": len(tareas_pendientes),
             "tareas_completadas": len(tareas_completadas)
         }
+

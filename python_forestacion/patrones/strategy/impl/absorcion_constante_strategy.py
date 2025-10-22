@@ -5,20 +5,17 @@ from python_forestacion.patrones.strategy.absorcion_agua_strategy import Absorci
 if TYPE_CHECKING:
     from python_forestacion.entidades.cultivos.cultivo import Cultivo
 
-
 class AbsorcionConstanteStrategy(AbsorcionAguaStrategy):
-    """Estrategia de absorción de agua constante para hortalizas (Lechuga, Zanahoria)."""
-
+    """Estrategia constante: siempre absorbe la misma cantidad."""
+    
     def __init__(self, cantidad_constante: int):
-        """
-        Inicializa la estrategia con una cantidad fija de agua.
+        self._cantidad = cantidad_constante
 
-        Args:
-            cantidad_constante (int): Cantidad fija de agua a absorber (litros).
-        """
-        self._cantidad_constante = cantidad_constante
-
-    def calcular_absorcion(self,cultivo: 'Cultivo',fecha: date,temperatura: float,humedad: float
+    def calcular_absorcion(
+        self,
+        fecha: date,
+        temperatura: float,
+        humedad: float,
+        cultivo: 'Cultivo'
     ) -> int:
-       
-        return self._cantidad_constante
+        return self._cantidad  # Siempre la misma cantidad

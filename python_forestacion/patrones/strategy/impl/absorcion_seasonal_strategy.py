@@ -2,7 +2,7 @@ from datetime import date
 from typing import TYPE_CHECKING
 from python_forestacion.patrones.strategy.absorcion_agua_strategy import AbsorcionAguaStrategy
 from python_forestacion.constantes import (
-    MES_INICIO_VERANO,
+    MES_INICIO_VERANO, 
     MES_FIN_VERANO,
     ABSORCION_SEASONAL_VERANO,
     ABSORCION_SEASONAL_INVIERNO
@@ -11,15 +11,18 @@ from python_forestacion.constantes import (
 if TYPE_CHECKING:
     from python_forestacion.entidades.cultivos.cultivo import Cultivo
 
-
 class AbsorcionSeasonalStrategy(AbsorcionAguaStrategy):
-    """Estrategia de absorción de agua estacional para árboles (Pino, Olivo)."""
-
-    def calcular_absorcion(self,cultivo: 'Cultivo',fecha: date,temperatura: float,humedad: float
+    """Estrategia estacional: más agua en verano, menos en invierno."""
+    
+    def calcular_absorcion(
+        self,
+        fecha: date,
+        temperatura: float,
+        humedad: float,
+        cultivo: 'Cultivo'
     ) -> int:
-        
         mes = fecha.month
-
         if MES_INICIO_VERANO <= mes <= MES_FIN_VERANO:
-            return ABSORCION_SEASONAL_VERANO
-        return ABSORCION_SEASONAL_INVIERNO
+            return ABSORCION_SEASONAL_VERANO  # 5L en verano
+        else:
+            return ABSORCION_SEASONAL_INVIERNO  # 2L en invierno
